@@ -25,7 +25,7 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         lastTime;
 
-    canvas.width = 505;
+    canvas.width = 707;
     canvas.height = 606;
     doc.body.appendChild(canvas);
 
@@ -95,6 +95,7 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
+
     }
 
     /* This function initially draws the "game level", it will then call
@@ -112,13 +113,14 @@ var Engine = (function(global) {
                 'images/stone-block.png',   // Row 1 of 3 of stone
                 'images/stone-block.png',   // Row 2 of 3 of stone
                 'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
+                'images/stone-block.png',   // Row 1 of 2 of grass
                 'images/grass-block.png'    // Row 2 of 2 of grass
             ],
             numRows = 6,
-            numCols = 5,
+            numCols = 7,
             row, col;
 
+        var bgImgObj = Resources.get('images/black-background.png');
         /* Loop through the number of rows and columns we've defined above
          * and, using the rowImages array, draw the correct image for that
          * portion of the "grid"
@@ -136,6 +138,9 @@ var Engine = (function(global) {
             }
         }
 
+        // ctx.drawImage(bgImgObj, 0, 0, bgImgObj*2, bgImgObj/2);
+        ctx.drawImage(bgImgObj, 450, 0, bgImgObj.width*3, bgImgObj.height/2);
+
         renderEntities();
     }
 
@@ -151,7 +156,11 @@ var Engine = (function(global) {
             enemy.render();
         });
 
+
+
         player.render();
+
+        heart.render();
     }
 
     /* This function does nothing but it could have been a good place to
@@ -171,7 +180,9 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/Heart.png',
+        'images/black-background.png'
     ]);
     Resources.onReady(init);
 
