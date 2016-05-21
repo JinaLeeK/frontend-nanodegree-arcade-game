@@ -139,7 +139,7 @@ var Engine = (function(global) {
         }
 
         // ctx.drawImage(bgImgObj, 0, 0, bgImgObj*2, bgImgObj/2);
-        ctx.drawImage(bgImgObj, 450, 0, bgImgObj.width*3, bgImgObj.height/2);
+        ctx.drawImage(bgImgObj, 450, 0, bgImgObj.width*3.2, bgImgObj.height/2);
 
         renderEntities();
     }

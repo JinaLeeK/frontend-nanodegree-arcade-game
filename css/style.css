@@ -4,10 +4,13 @@ html, body {
     background-color: #151515;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 canvas {
     display: block;
     margin: 30px auto;
-
     position: absolute;
     top: 0;
     bottom: 0;
@@ -19,12 +22,31 @@ canvas {
     width: 707px;
     margin: 0 auto;
     margin-top: 2em;
+    display: block;
 }
 
+#level {
+  position: absolute;
+  z-index: 1;
+  /*display: inline-block;*/
+  color: #787878;
+  /*margin-left: 40px;*/
+}
+#level input {
+  margin-left: -15px;
+}
+
+#level input .radio-inline {
+  width: 45px;
+}
+
+
 #instructions {
-    float: left;
+    /*float: left;*/
     font-family: sans-serif;
-    color: #757575;
+    color: #787878;
+    margin-left: 8px;
+    display: inline-block;
 }
 
 #score {
@@ -33,14 +55,22 @@ canvas {
     font-size: 2em;
 }
 
+.wrapper button {
+  opacity: .8;
+  position: absolute;
+  z-index: 1;
+  top: 30px;
+  left: 650px;
+}
+
 .key {
     color: #aaffdd;
 }
 
 #game-over, #game-over-overlay {
-    margin: auto;
-    width: 707px;
-    height: 480px;
+    margin: 80px auto;
+    width: 720px;
+    height: 550px;
     position: absolute;
     top: 0;
     left: 0;
@@ -52,10 +82,11 @@ canvas {
 
 #game-over-overlay {
     background-color: black;
-    opacity: .5;
+    opacity: .8;
 }
 
 #game-over {
+    padding-top: 150px;
     height: 200px;
     text-align: center;
     color: white;
@@ -68,4 +99,9 @@ canvas {
 
 #game-over button {
     font-size: 1.5em;
+}
+
+button a {
+  text-decoration: none;
+  color: #151515;
 }

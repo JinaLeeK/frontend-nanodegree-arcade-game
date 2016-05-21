@@ -7,11 +7,23 @@ var theScore     = 0,
       xStep : 100,
       yStep : 85
     },
-    enemyNumber  = Math.floor(Math.random()*8 + 1 ),
-    allEnemies = [];
-    console.log(enemyNumber);
+    levelBtn = $("input:radio"),
+    allEnemies = [],
+    enemyNum,
+    isGameOver = false,
+    currentLevel = localStorage.getItem("level") || $("input:checked").val();
 
-$("#score").html(theScore);
+var soundData = {
+  plusScore: new Howl({
+    urls: ['sounds/bubbles.mp3']
+  }),
+  minusHeart: new Howl({
+    urls:['sounds/flash-2.mp3']
+  })
+};
+
+
+
 // Enemies our player must avoid
 var Enemy = function() {
     this.sprite = 'images/enemy-bug.png';
@@ -22,7 +34,8 @@ Enemy.prototype.getProfile = function() {
   this.x = canvasPos.xLeft;
   this.y = canvasPos.yUpper + canvasPos.yStep * Math.floor(Math.random()*4 + 1);
   this.speed = Math.floor(Math.random()*300)+50;
-}
+};
+
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
@@ -37,12 +50,9 @@ Enemy.prototype.update = function(dt) {
     }
 
     if(this.x < player.x + 30 && this.x + 60 > player.x && this.y < player.y + 60 && this.y + 40 > player.y) {
-      // theScore = 0;
-      // $("#score").html(theScore);
       player.reset();
+      soundData.minusHeart.play();
       heart.decrease();
-      // heart.reset();
-
     }
 };
 
@@ -50,9 +60,6 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-
-
-
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -70,8 +77,9 @@ Player.prototype.posInitialize = function() {
 
 Player.prototype.update = function() {
   if (this.y <= canvasPos.yUpper) {
+    soundData.plusScore.play();
     theScore++;
-    $("#myScore").html(theScore);
+    $("#score").html(theScore);
     this.reset();
   }
 }
@@ -103,7 +111,6 @@ Player.prototype.reset = function() {
 var Heart = function() {
   this.sprite = 'images/Heart.png';
   this.number = 5;
-  // console.log(this.number);
 }
 
 Heart.prototype.render = function() {
@@ -112,7 +119,7 @@ Heart.prototype.render = function() {
   var posX = 640;
 
   for (var i=0 ; i<this.number; i++) {
-    ctx.drawImage(imgObj, posX, -5, imgObj.width/3, imgObj.height/3);
+    ctx.drawImage(imgObj, posX, -12, imgObj.width/3, imgObj.height/3);
     posX = posX - 40;
   }
 }
@@ -120,17 +127,48 @@ Heart.prototype.render = function() {
 Heart.prototype.decrease = function() {
   this.number--;
   if (this.number === 0){
-    this.reset();
+      this.gameOver();
   }
 }
 
-// Heart.prototype.reset = function() {
-//   this.number = 5;
-// }
+Heart.prototype.reset = function() {
+  this.number = 5;
+}
+
+Heart.prototype.gameOver = function() {
+  $("#game-over-overlay").css("display", "block");
+  $("#game-over").css("display", "block");
+  localStorage.setItem("level", $("input:checked").val());
+  // $("#game-over").css("diplay", "block");
+  isGameOver = true;
+
+}
 
 
+var levelToNum = function(str) {
+  if (str === 'option1') {
+    return Math.floor(Math.random()*2 + 1)
+  } else if (str === 'option2') {
+    return  Math.floor(Math.random()*3 + 1) + 2;
+  } else if (str === 'option3') {
+    return  Math.floor(Math.random()*3 + 1) + 5
+  }
+}
 
-for (var i=0; i<enemyNumber; i++) {
+var curLevel = function(str) {
+  if (str === 'option1') {
+    $("input:radio:nth(0)").attr("checked", true);
+  } else if (str === 'option2') {
+    $("input:radio:nth(1)").attr("checked", true);
+  } else {
+    $("input:radio:nth(2)").attr("checked", true);
+  }
+};
+
+curLevel(currentLevel);
+enemyNum = levelToNum(currentLevel);
+// enemyNum = levelToNum($("input:checked").val());
+for (var i=0; i<enemyNum; i++) {
   allEnemies.push(new Enemy());
 }
 
@@ -144,6 +182,19 @@ document.addEventListener('keyup', function(e) {
         39: 'right',
         40: 'down'
     };
-
+    $()
     player.handleInput(allowedKeys[e.keyCode]);
+});
+
+
+levelBtn.change(function() {
+  // console.log($("input:radio").val());
+  enemyNum = levelToNum($("input:checked").val());
+  allEnemies = [];
+  $("input:radio").blur();
+  for (var i=0; i<enemyNum; i++) {
+    allEnemies.push(new Enemy());
+  }
+  player.reset();
+  heart.reset();
 });

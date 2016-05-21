@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Arcade Game By JINA LEE</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -10,18 +11,35 @@
 
   <div id="game-over">
     <h1>GAME OVER</h1>
-    <button id="play-again">Play Again</button>
+    <button id="play-again"><a href="./index.html">Play Again</a></button>
   </div>
 
   <div class="wrapper">
     <div id="instructions">
       move with <span class="key">arrows</span>
     </div>
+    <div id="level">
+      <label class="radio-inline">
+        <input type="radio" name="level" value="option1" checked> easy
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="level" value="option2"> medium
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="level" value="option3"> hard
+      </label>
+    </div>
+
+    <button type="button" class = "btn btn-default btn-md"><a href="./index.html">RESTART</a></button>
+
+
     <div id="score">0</div>
   </div>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
-    <script src="js/resources.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/engine.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/1.1.29/howler.js"></script>
+  <script src="js/resources.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/engine.js"></script>
 </body>
 </html>
