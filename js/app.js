@@ -23,8 +23,6 @@ var soundData = {
 };
 
 
-
-// Enemies our player must avoid
 var Enemy = function() {
     this.sprite = 'images/enemy-bug.png';
     this.getProfile();
@@ -39,9 +37,6 @@ Enemy.prototype.getProfile = function() {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
 
     if (this.x < canvasPos.xRight) {
       this.x += (this.speed * dt);
@@ -61,9 +56,8 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
+
+
 var Player = function() {
   this.sprite = 'images/char-boy.png';
 
@@ -107,7 +101,7 @@ Player.prototype.reset = function() {
   this.posInitialize();
 }
 
-// Chance to play
+// Chances to play
 var Heart = function() {
   this.sprite = 'images/Heart.png';
   this.number = 5;
@@ -195,6 +189,7 @@ levelBtn.change(function() {
   for (var i=0; i<enemyNum; i++) {
     allEnemies.push(new Enemy());
   }
+  localStorage.setItem("level", $("input:checked").val());
   player.reset();
   heart.reset();
 });

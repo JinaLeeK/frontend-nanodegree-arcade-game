@@ -18,6 +18,9 @@ canvas {
     right: 0;
 }
 
+#mobile-screen {
+  display: none;
+}
 .wrapper {
     width: 707px;
     margin: 0 auto;
@@ -29,8 +32,8 @@ canvas {
   position: absolute;
   z-index: 1;
   /*display: inline-block;*/
-  color: #787878;
-  /*margin-left: 40px;*/
+  color: aliceblue;
+  margin-top: 20px;
 }
 #level input {
   margin-left: -15px;
@@ -104,4 +107,19 @@ canvas {
 button a {
   text-decoration: none;
   color: #151515;
+}
+
+
+@media (max-width: 950px) {
+  #mobile-screen {
+    display: block;
+    margin-top: 60px;
+  }
+  .desc {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  canvas, .wrapper {
+    display: none;
+  }
 }
